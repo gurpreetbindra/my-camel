@@ -86,6 +86,8 @@
     <!-- use utf-8 encoding -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <plugin.lifecycle.version>1.0.0</plugin.lifecycle.version>
+    <plugin.keytool.version>1.5</plugin.keytool.version>
   </properties>
 
   <build>
@@ -104,7 +106,7 @@
             <showDeprecation>true</showDeprecation>
           </configuration>
         </plugin>
-        <plugin>
+<!--         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-eclipse-plugin</artifactId>
           <version>2.8</version>
@@ -119,7 +121,7 @@
             <downloadSources>true</downloadSources>
             <downloadJavadocs>false</downloadJavadocs>
           </configuration>
-        </plugin>
+        </plugin> -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-idea-plugin</artifactId>
@@ -207,6 +209,31 @@
         </configuration>
       </plugin>
       
+      <plugin>
+			<groupId>org.eclipse.m2e</groupId>
+			<artifactId>lifecycle-mapping</artifactId>
+			<version>${plugin.lifecycle.version}</version>
+			<configuration>
+				<lifecycleMappingMetadata>
+					<pluginExecutions>
+						<pluginExecution>
+							<pluginExecutionFilter>
+								<groupId>org.codehaus.mojo</groupId>
+								<artifactId>keytool-maven-plugin</artifactId>
+								<versionRange>[${plugin.keytool.version},)</versionRange>
+								<goals>
+									<goal>clean</goal>
+									<goal>generateKeyPair</goal>
+								</goals>
+							</pluginExecutionFilter>
+							<action>
+								<ignore />
+							</action>
+						</pluginExecution>
+					</pluginExecutions>
+				</lifecycleMappingMetadata>
+			</configuration>
+		</plugin>
                   <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
